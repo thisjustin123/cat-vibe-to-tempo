@@ -1,0 +1,43 @@
+/* 
+93 Frames. Beats head 13 times.
+85 Frames. Beats head 12 times. 
+
+Goal: 
+  ?? Seconds per play.
+Have:
+  X Beats per minute.
+  Y Beats per play.
+
+Compute:
+  X / Y -- plays per minute.
+  (Y / X) -- minutes per play
+  (Y / X) * (60) -- seconds per play
+
+Final Computation:
+  (Y / X) * 60 seconds.
+*/
+
+
+
+.giffer {
+  --duration: 4.138s;
+  background: url("../res/cat-vibe-trimmed.png") 0 0 no-repeat;
+  background-size: 8500%;
+  animation: anim-ss steps(84) var(--duration) infinite;
+  width: 100%;
+  height: 100vh;
+}
+
+.flip {
+  transform: scaleX(-1);
+}
+
+@keyframes anim-ss {
+  0% {
+    background-position: 0%;
+  }
+
+  100% {
+    background-position: 100%;
+  }
+}
