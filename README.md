@@ -11,3 +11,6 @@ Requires microphone access to listen to music.
 Now you can play music into your computer microphone, and vibe cat will extract
 the music's BPM to vibe to!
 
+
+
+![](https://media.tenor.com/_7R8xjV6dSIAAAAd/cat-vibe.gif)
