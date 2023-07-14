@@ -99,8 +99,8 @@ function App() {
   function Start() {
     if (!set) {
       setClicked(true);
-      setTimeout(doRecording, 2000)
-      setTimeout(() => { setInterval(doRecording, interval); }, 3000)
+      setTimeout(doRecording, 1000)
+      setTimeout(() => { setInterval(doRecording, interval); }, 2000)
       set = true;
     }
   }
