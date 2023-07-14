@@ -22,6 +22,10 @@ const recorder = new MicRecorder({
 
 function App() {
   const [bpm, setBpm] = useState(prevBpm);
+  // If -1, don't render. Otherwise, render.
+  const [justSetTempo, setJustSetTempo] = useState(-1);
+  const [clicked, setClicked] = useState(false);
+  const [permissionsBlock, setPermissionsBlock] = useState(false);
 
   function doRecording() {
     console.log("Recording start...")
@@ -51,6 +55,8 @@ function App() {
           blob.arrayBuffer().then((arr) => {
             audioContext.decodeAudioData(arr).then(
               (audioBuffer) => {
+                setPermissionsBlock(false)
+
                 //console.log("Audio Buffer Duration: " + audioBuffer)
                 const floatArr = new Float32Array(audioBuffer.length)
                 audioBuffer.copyFromChannel(floatArr, 0)
@@ -67,12 +73,21 @@ function App() {
                 if (Math.abs(change) > flag) {
                   prevBpm = tempoAdjusted
                   setBpm(tempoAdjusted)
+
+                  setJustSetTempo(tempoAdjusted)
+                  setTimeout(() => { setJustSetTempo(-1) }, 2500)
                 }
                 else {
                   console.log("Change is less than " + flag + ". Ignoring...")
                 }
               }
             )
+              // Could not decode audio -- usually due to permissions.
+              .catch((e) => {
+                console.log("Permissions not yet granted.")
+                setPermissionsBlock(true)
+                setTimeout(() => { setPermissionsBlock(false) }, 3000)
+              })
           })
         }
       ).catch((e) => {
@@ -81,21 +96,33 @@ function App() {
     }, interval - intervalBuffer)
   }
 
-  React.useEffect(() => {
+  function Start() {
     if (!set) {
+      setClicked(true);
       setTimeout(doRecording, 2000)
       setTimeout(() => { setInterval(doRecording, interval); }, 3000)
       set = true;
     }
-  })
+  }
 
   return (
     <div className="App">
-      <ul style={{ display: 'table', width: '100vw', boxSizing: 'border-box', padding: 0 }}>
+      <ul style={{ display: 'table', width: '100vw', boxSizing: 'border-box', padding: 0 }} onClick={Start}>
         <li className="horiz"><CatVibe bpm={bpm + ""}></CatVibe></li>
         <li className="horiz" style={{ width: "20%" }}></li>
         <li className="horiz"><CatVibe bpm={bpm + ""} flip="y"></CatVibe></li>
       </ul>
+      {!clicked &&
+        <div id="text">Click to Start Recording Tempo</div>
+      }
+      {permissionsBlock &&
+        <div id="text" style={{ color: "rgba(255, 0, 0, .7)" }}>Microphone Permissions Not Granted. Retrying...</div>
+      }
+      {justSetTempo >= 0 &&
+        <div id="text" style={{ color: "rgba(255, 255, 255, .4)" }}>
+          {justSetTempo.toFixed(0) + " BPM"}
+        </div>
+      }
     </div>
   );
 }
