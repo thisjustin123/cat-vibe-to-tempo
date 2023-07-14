@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/vibe-cat/static/css/main.ce3fa32c.css",
+    "main.js": "/vibe-cat/static/js/main.8b3c4b34.js",
+    "static/js/787.820007bf.chunk.js": "/vibe-cat/static/js/787.820007bf.chunk.js",
+    "static/media/cat-vibe-trimmed.png": "/vibe-cat/static/media/cat-vibe-trimmed.778b03d117d9f304cb96.png",
+    "index.html": "/vibe-cat/index.html",
+    "main.ce3fa32c.css.map": "/vibe-cat/static/css/main.ce3fa32c.css.map",
+    "main.8b3c4b34.js.map": "/vibe-cat/static/js/main.8b3c4b34.js.map",
+    "787.820007bf.chunk.js.map": "/vibe-cat/static/js/787.820007bf.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ce3fa32c.css",
+    "static/js/main.8b3c4b34.js"
+  ]
+}
